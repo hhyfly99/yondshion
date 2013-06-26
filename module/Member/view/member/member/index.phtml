@@ -1,0 +1,9 @@
+<?php
+	// module/Album/view/album/album/index.phtml:
+	$title = '用户首页';
+	$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<a href="<?php echo $this->url('member', array('action'=>'SignIn'));?>">用户登录</a>
+<a href="<?php echo $this->url('member', array('action'=>'SignUp'));?>">用户注册</a>

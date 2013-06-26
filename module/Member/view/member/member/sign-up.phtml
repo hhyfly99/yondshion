@@ -1,0 +1,68 @@
+<?php
+	// module/Album/view/album/album/index.phtml:
+	$title = '用户注册';
+	$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('member', array('action' => 'SignUp')));
+$form->prepare();
+
+$recaptcha = new ZendService\ReCaptcha\ReCaptcha(PUBKEY, PRIVKEY);
+
+echo $this->form()->openTag($form);
+?>
+
+<table>
+  <tr>
+    <td></td>
+    <td><?php echo $this->formHidden($form->get('id')); ?></td>
+  </tr>
+  <tr>
+    <!-- <td>用户名: </td> -->
+    <td><?php 
+    			//echo $this->formRow($form->get('membershipName')); 
+    			echo $this->formRow($form->get('memberName'), null, true);
+    			//echo $this->formElementErrors($form->get("membershipName"), array('message' => $this->translate("Value is required and can't be empty")))			
+    			//echo $this->formRow($form->get('membershipName'), null, array('message' => $this->translate("必须输入且不能为空")));
+    			//$this->formRow($form->get('membershipName'));
+    
+    ?></td>
+  </tr>
+  <tr>
+    <!-- <td>邮件: </td> -->
+    <td><?php echo $this->formRow($form->get('memberMail')); ?></td>
+  </tr>
+  <tr>
+    <!-- <td>密码: </td> -->
+    <td><?php echo $this->formRow($form->get('memberPasswd')); ?></td>
+  </tr>
+  <tr>
+    <!-- <td>确认密码: </td> -->
+    <td><?php echo $this->formRow($form->get('memberPasswdComfirm')); ?></td>
+  </tr>
+  <tr>
+    <!-- <td>验证码: </td> -->
+    <td><?php echo $this->formRow($form->get('captcha'));
+			  //echo $recaptcha->getHTML();
+			  //echo $captcha->getService()->getHtml();
+			  //echo $this->formRow($form->get('captcha'))->getService()->getHtml();
+			  ?></td>
+  </tr>
+  <tr>
+    <!-- <td>同意协议: </td> -->
+    <td><?php echo $this->formRow($form->get('agreement'));?></td>
+    <td><a href="http://www.yondshion.com/membershipProtocol.html" id="membershipProtocol">用户协议书</a></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><?php echo $this->formSubmit($form->get('submit')); ?></td>
+  </tr>
+</table>
+
+<?php 
+	echo $this->form()->closeTag();
+?>
+
+
