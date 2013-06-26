@@ -22,15 +22,12 @@ echo $this->form()->openTag($form);
     <td><?php echo $this->formHidden($form->get('id')); ?></td>
   </tr>
   <tr>
-    <td>用户名: </td>
     <td><?php echo $this->formRow($form->get('memberName')); ?></td>
   </tr>
   <tr>
-    <td>密码: </td>
     <td><?php echo $this->formRow($form->get('memberPasswd')); ?></td>
   </tr>
   <tr>
-    <td>验证码: </td>
     <td><?php echo $this->formRow($form->get('captcha'));
 			  //echo $recaptcha->getHTML();
 			  ?></td>

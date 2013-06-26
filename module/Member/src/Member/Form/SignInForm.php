@@ -23,19 +23,40 @@ class SignInForm extends Form {
 		);
 		$this->add(array(
 				'name' => 'memberName',
+				'type' => 'text',
+				'options' => array(
+					'label' => '姓名:  ',
+				),
+				/*
 				'attributes' => array(
 					'type' => 'text',
 				),
+				*/
 			)
 		);
 		$this->add(array(
 				'name' => 'memberPasswd',
-				'attributes' => array(
-					'type' => 'password',
+				'type' => 'password',
+				'options' => array(
+					'label' => '密码:  ',
 				),
 			)
 		);
 		
+		
+		$this->add(array(
+				'name' => 'captcha',
+				'type' => 'Captcha',
+				'options' => array(
+					'label' => '验证码:  ',
+					'captcha' => array(
+                        'class' => 'Dumb',
+                    ),
+				),
+			)
+		);
+		
+		/*
 		$dirdata = './data';
 		$captchaImg = new CaptchaImage(array(
 			'Font' => $dirdata . '/font/arial.ttf',
@@ -54,6 +75,8 @@ class SignInForm extends Form {
 		      'captcha' => $captchaImg,
 		    ),
 		));
+		*/
+		
 		
 		/*
 		$captcha = new Element\Captcha('captcha');

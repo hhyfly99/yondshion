@@ -36,29 +36,28 @@ class SignUpForm extends Form {
 		
 		$this->add(array(
 				'name' => 'id',
+				'type' => 'hidden',
+				/*
 				'attributes' => array(
 					'type' => 'hidden',
 				),
+				*/
 			)
 		);
 		
 		$this->add(array(
 				'name' => 'memberName',
+				'type' => 'text',
 				'options' => array(
 					'label' => '姓名:  ',
-				),
-				'attributes' => array(
-					'type' => 'text',
 				),
 			)
 		);
 		$this->add(array(
 				'name' => 'memberMail',
+				'type' => 'Email',
 				'options' => array(
 					'label' => '邮箱:  ',
-				),
-				'attributes' => array(
-					'type' => 'Email',
 				),
 			)
 		);
@@ -75,26 +74,34 @@ class SignUpForm extends Form {
 		);
 		$this->add(array(
 				'name' => 'memberPasswd',
+				'type' => 'password',
 				'options' => array(
 					'label' => '密码:  ',
-				),
-				'attributes' => array(
-					'type' => 'password',
 				),
 			)
 		);
 		$this->add(array(
 				'name' => 'memberPasswdComfirm',
+				'type' => 'password',
 				'options' => array(
 					'label' => '确认密码:',
-				),
-				'attributes' => array(
-					'type' => 'password',
 				),
 			)
 		);
 
 		
+		$this->add(array(
+				'name' => 'captcha',
+				'type' => 'Captcha',
+				'options' => array(
+					'label' => '验证码:  ',
+					'captcha' => array(
+                        'class' => 'Dumb',
+                    ),
+				),
+			)
+		);
+		/*
 		$dirdata = './data';
 		$captchaImg = new CaptchaImage(array(
 			'Font' => $dirdata . '/font/arial.ttf',
@@ -117,7 +124,7 @@ class SignUpForm extends Form {
 		    	'captcha' => $captchaImg,
 		    ),
 		));
-		
+		*/
 		/*
 		$options = array(
 			'theme' => 'clean', 
