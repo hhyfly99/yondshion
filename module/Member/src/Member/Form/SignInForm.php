@@ -3,9 +3,11 @@
 namespace Member\Form;
 
 use Zend\Form\Form;
-use Zend\Captcha;
 use Zend\Form\Element;
-use Zend\Captcha\Image as CaptchaImage;
+use Zend\Form\Element\Captcha as CaptchaFormElement;
+use Zend\Captcha\ReCaptcha;
+use ZendService\ReCaptcha\ReCaptcha as ReCaptchaService;
+//use Zend\Captcha\Image as CaptchaImage;
 
 class SignInForm extends Form {
 	
@@ -43,7 +45,34 @@ class SignInForm extends Form {
 			)
 		);
 		
+		$options = array(
+			'theme' => 'clean', 
+			'lang' => 'zh',
+		);
+		/*
+		$captchaService = new ReCaptchaService(PUBKEY, PRIVKEY);        
+	    $recaptcha = new ReCaptcha();
+	    $recaptcha->setService($captchaService);
+	    $captcha = new CaptchaFormElement('captcha');
+	    $captcha->setLabel('验证码:  ');
+	    $captcha->setCaptcha($recaptcha);
+	    $this->add($captcha);
+	    */
+		$reCaptchaService = new ReCaptchaService(PUBKEY, PRIVKEY, null, $options);
+		$reCaptcha = new ReCaptcha();
+		$reCaptcha->setService($reCaptchaService);
+		$this->add(array(
+				'name' => 'captcha',
+				'type' => 'Captcha',
+				'options' => array(
+					'label' => '验证码:  ',
+					'service' => $reCaptchaService,
+					'captcha' => $reCaptcha,
+				),
+			)
+		);
 		
+		/*
 		$this->add(array(
 				'name' => 'captcha',
 				'type' => 'Captcha',
@@ -55,7 +84,7 @@ class SignInForm extends Form {
 				),
 			)
 		);
-		
+		*/
 		/*
 		$dirdata = './data';
 		$captchaImg = new CaptchaImage(array(
@@ -77,12 +106,6 @@ class SignInForm extends Form {
 		));
 		*/
 		
-		
-		/*
-		$captcha = new Element\Captcha('captcha');
-		$captcha->setCaptcha(new Captcha\Dumb())->setLabel('Please verify you are human');
-		$this->add($captcha);
-		*/
 		$this->add(array(
 	            'name' => 'submit',
 	            'attributes' => array(

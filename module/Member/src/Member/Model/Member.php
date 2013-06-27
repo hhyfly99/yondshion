@@ -16,11 +16,12 @@ use Zend\InputFilter\InputFilterInterface;
 
 class Member {
 	
-	public $id;
-	public $memberName;
-	public $memberMail;
-	public $memberPasswd;
-	public $memberPasswdComfirm;
+	protected $id;
+	protected $memberName;
+	protected $memberMail;
+	protected $memberPasswd;
+	protected $memberPasswdComfirm;
+	protected $memberSalt;
 	public $recaptcha;
 	public $signInInputFilter;
 	public $signUpInputFilter;
@@ -130,7 +131,6 @@ class Member {
         return $this->signInInputFilter;
 	}
 	
-	
 	public function getSignUpInputFilter() {
 		if (!$this->signUpInputFilter) {
             $signUpInputFilter = new InputFilter();
@@ -156,7 +156,7 @@ class Member {
                         'name'    => 'NotEmpty',
                         'options' => array(
                     		'messages' => array(
-                    			NotEmpty::IS_EMPTY => '用户名必须输入',
+                    			NotEmpty::IS_EMPTY => '会员名必须输入',
                     		),
                         ),
                     ),
@@ -167,8 +167,8 @@ class Member {
                             'min'      => 6,
                             'max'      => 100,
                     		'messages' => array(
-                    			StringLength::TOO_SHORT => '用户名不少于6个字符',
-                    			StringLength::TOO_LONG => '用户名不大于100个字符',
+                    			StringLength::TOO_SHORT => '会员名不少于6个字符',
+                    			StringLength::TOO_LONG => '会员名不大于100个字符',
                     		),
                         ),
                     ),

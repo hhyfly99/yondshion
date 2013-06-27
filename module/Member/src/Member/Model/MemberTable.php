@@ -30,10 +30,12 @@ class MemberTable {
 	
 	public function saveMember(Member $member)
 	{
+		$memberSalt = time();
 		$data = array(
 			'memberName' => $member->memberName,
 			'memberMail' => $member->memberMail,
 			'memberPasswd' => $member->memberPasswd,
+			'memberSalt' => $member->memberSalt,
 			'signupDate' => date('Y-m-d H:i:s'),
 		);
 		$id = (int)$member->id;

@@ -1,5 +1,5 @@
 <?php
-	// module/Album/view/album/album/index.phtml:
+	// module/Member/view/member/member/sign-up.phtml:
 	$title = '用户注册';
 	$this->headTitle($title);
 ?>
@@ -22,12 +22,10 @@ echo $this->form()->openTag($form);
   <tr>
     <!-- <td>用户名: </td> -->
     <td><?php 
-    			//echo $this->formRow($form->get('membershipName')); 
+    			//echo $this->formRow($form->get('memberName')); 
     			echo $this->formRow($form->get('memberName'), null, true);
-    			//echo $this->formElementErrors($form->get("membershipName"), array('message' => $this->translate("Value is required and can't be empty")))			
-    			//echo $this->formRow($form->get('membershipName'), null, array('message' => $this->translate("必须输入且不能为空")));
-    			//$this->formRow($form->get('membershipName'));
-    
+    			//echo $this->formElementErrors($form->get("memberName"), array('message' => $this->translate("Value is required and can't be empty")))			
+    			//echo $this->formRow($form->get('memberName'), null, array('message' => $this->translate("必须输入且不能为空")));
     ?></td>
   </tr>
   <tr>
@@ -44,16 +42,12 @@ echo $this->form()->openTag($form);
   </tr>
   <tr>
     <!-- <td>验证码: </td> -->
-    <td><?php echo $this->formRow($form->get('captcha'));
-			  //echo $recaptcha->getHTML();
-			  //echo $captcha->getService()->getHtml();
-			  //echo $this->formRow($form->get('captcha'))->getService()->getHtml();
-			  ?></td>
+    <td><?php echo $this->formRow($form->get('captcha')); ?></td>
   </tr>
   <tr>
     <!-- <td>同意协议: </td> -->
     <td><?php echo $this->formRow($form->get('agreement'));?></td>
-    <td><a href="http://www.yondshion.com/membershipProtocol.html" id="membershipProtocol">用户协议书</a></td>
+    <td><a href="http://www.yondshion.com/memberProtocol.html" id="memberProtocol">用户协议书</a></td>
   </tr>
   <tr>
     <td></td>

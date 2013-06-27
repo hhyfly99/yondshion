@@ -2,32 +2,15 @@
 
 namespace Member\Form;
 
-use Zend\Captcha\ReCaptcha;
-
-use Zend\Form\Element\Textarea;
-
-use Zend\Form\Element\Checkbox;
-
-use Zend\Form\Annotation\Options;
-
-use Zend\Form\Element;
-
-use Zend\Mvc\Router\Http\Method;
-//use ZendService\ReCaptcha\ReCaptcha;
 use Zend\Form\Form;
-use Zend\Captcha\Image as CaptchaImage;
-use Zend\Captcha\Factory;
-//use Zend\Captcha;
+use Zend\Form\Element;
+use Zend\Form\Element\Captcha as CaptchaFormElement;
+use Zend\Captcha\ReCaptcha;
+use ZendService\ReCaptcha\ReCaptcha as ReCaptchaService;
+use Zend\Form\Element\Checkbox;
+//use Zend\Captcha\Image as CaptchaImage;
 
 class SignUpForm extends Form {
-	
-	//protected $captcha;
-	/*
-	public function setCaptcha(CaptchaAdapter $captcha) {
-		$captcha = new Captcha\Dumb();
-		$this->captcha = $captcha;
-	}
-	*/
 	
 	public function __construct($name = null) {
 		parent::__construct('Member');
@@ -61,6 +44,7 @@ class SignUpForm extends Form {
 				),
 			)
 		);
+		/*
 		$this->add(array(
 				'name' => 'memberPhone',
 				'options' => array(
@@ -72,6 +56,7 @@ class SignUpForm extends Form {
 				),
 			)
 		);
+		*/
 		$this->add(array(
 				'name' => 'memberPasswd',
 				'type' => 'password',
@@ -88,19 +73,25 @@ class SignUpForm extends Form {
 				),
 			)
 		);
-
 		
+		$options = array(
+			'theme' => 'clean', 
+			'lang' => 'zh',
+		);
+		$reCaptchaService = new ReCaptchaService(PUBKEY, PRIVKEY, null, $options);
+		$reCaptcha = new ReCaptcha();
+		$reCaptcha->setService($reCaptchaService);
 		$this->add(array(
 				'name' => 'captcha',
 				'type' => 'Captcha',
 				'options' => array(
 					'label' => '验证码:  ',
-					'captcha' => array(
-                        'class' => 'Dumb',
-                    ),
+					'captcha' => $reCaptcha,
+					'service' => $reCaptchaService,
 				),
 			)
 		);
+		
 		/*
 		$dirdata = './data';
 		$captchaImg = new CaptchaImage(array(
@@ -124,43 +115,6 @@ class SignUpForm extends Form {
 		    	'captcha' => $captchaImg,
 		    ),
 		));
-		*/
-		/*
-		$options = array(
-			'theme' => 'clean', 
-			'lang' => 'zh',
-		);
-		$reCaptcha = new ReCaptcha(PUBKEY, PRIVKEY, null, $options);
-		//var_dump($reCaptcha);
-		
-		$captcha = new Element\Captcha('captcha');
-		$captcha->setCaptcha('reCaptcha')->setService($reCaptcha->getHtml());
-		$this->add($captcha);
-		
-		//$cap = new Recaptcha();
-		
-		$captcha = new Element\Captcha('captcha');
-		$captcha->setCaptcha($reCaptcha);
-		$this->add($captcha);
-		*/
-		/*
-		$this->add(array(
-		    'type' => 'reCaptcha',
-			'name' => 'captcha',
-		    'options' => array(
-				
-		      	'captcha' => 'Captcha',
-				'service' => $reCaptcha,
-				
-				//'captcha' => $reCaptcha,
-		    ),
-		));		
-		*/
-		
-		/*
-		$captcha = new Element\Captcha('captcha');
-		$captcha->setCaptcha($this->captcha);
-		$this->add($captcha);
 		*/
 		
 		//$agreement = new Checkbox('agreement');

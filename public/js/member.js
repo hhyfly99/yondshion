@@ -10,9 +10,41 @@ function getAction() {
 	});
 }
 
-
 function showProtocol() {
-	$('#membershipProtocol').colorbox();
+	$('#memberProtocol').colorbox();
+}
+
+function signUpFormAjax() {
+	/*
+	$('input').blur(function(){
+		var formElememtId = $(this).attr('name');
+		var data = {};
+		$('input').each(function(){
+			data[$(this).attr('name')] = $(this).val();
+			
+		});
+	});
+	console.log(data);
+	*/
+	$('input').blur(function(){
+		var formElememtId = $(this).attr('name');
+		
+		signUpFormValidation(formElememtId);
+		
+	});
+}
+
+function signUpFormValidation(formElememtId){
+	var url = 'member/SignUp';
+	var data = {};
+	$('input').each(function(){
+		data[$(this).attr('name')] = $(this).val();
+		
+	});
+	$.post(url, data, function(resp){
+		console.log(resp);
+	}, 'json');
+	
 }
 
 function checkSignUpForm() {
@@ -38,5 +70,6 @@ function checkSignUpForm() {
 $(document).ready(function(){
 	checkSignUpForm();
 	showProtocol();
+	signUpFormValidateAction();
 });
 
