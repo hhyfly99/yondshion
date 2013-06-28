@@ -2,8 +2,7 @@
 namespace Member\Model;
 
 use Zend\Validator\StringLength;
-
-//use Zend\Log\Filter\Regex;
+use Zend\Form\Annotation;
 use Zend\Validator\Regex;
 use Zend\Validator\NotEmpty;
 use Zend\Validator\EmailAddress;

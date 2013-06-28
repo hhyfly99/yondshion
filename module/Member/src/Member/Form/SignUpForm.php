@@ -154,6 +154,7 @@ class SignUpForm extends Form {
 	        )
         );
 	}
+	
 }
 
 
