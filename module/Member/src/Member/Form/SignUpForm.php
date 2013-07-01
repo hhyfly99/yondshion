@@ -30,7 +30,10 @@ class SignUpForm extends Form {
 		
 		$this->add(array(
 				'name' => 'memberName',
-				'type' => 'text',
+				'attributes' => array(
+					'type' => 'text',
+					'id' => 'memberName',
+				),
 				'options' => array(
 					'label' => '姓名:  ',
 				),
@@ -38,7 +41,10 @@ class SignUpForm extends Form {
 		);
 		$this->add(array(
 				'name' => 'memberMail',
-				'type' => 'Email',
+				'attributes' => array(
+					'type' => 'Email',
+					'id' => 'memberMail',
+				),
 				'options' => array(
 					'label' => '邮箱:  ',
 				),
@@ -59,7 +65,10 @@ class SignUpForm extends Form {
 		*/
 		$this->add(array(
 				'name' => 'memberPasswd',
-				'type' => 'password',
+				'attributes' => array(
+					'type' => 'password',
+					'id' => 'memberPasswd',
+				),
 				'options' => array(
 					'label' => '密码:  ',
 				),
@@ -67,7 +76,10 @@ class SignUpForm extends Form {
 		);
 		$this->add(array(
 				'name' => 'memberPasswdComfirm',
-				'type' => 'password',
+				'attributes' => array(
+					'type' => 'password',
+					'id' => 'memberPasswdComfirm',
+				),
 				'options' => array(
 					'label' => '确认密码:',
 				),
@@ -84,6 +96,9 @@ class SignUpForm extends Form {
 		$this->add(array(
 				'name' => 'captcha',
 				'type' => 'Captcha',
+				'attributes' => array(
+					'id' => 'captcha',
+				),
 				'options' => array(
 					'label' => '验证码:  ',
 					'captcha' => $reCaptcha,
@@ -119,30 +134,20 @@ class SignUpForm extends Form {
 		
 		//$agreement = new Checkbox('agreement');
 		$this->add(array(
-			'type' => 'Checkbox',
+			
 			'name' => 'agreement',
+			'attributes' => array(
+				'type' => 'Checkbox',
+				'id' => 'agreement',
+			),
 			'options' => array(
 				'label' => '同意协议',
 				'use_hidden_element' => true,
-				'checked_value' => 1,
+				'checked_value' => 'yes',
                 'unchecked_value' => 'no',
-			)
-		));
-		
-		/*
-		$this->add(array(
-			'type' => 'Button',
-			'name' => 'protocolInfo',
-			'options' => array(
-				'label' => '',
 			),
+			
 		));
-		*/
-		/*
-		$protocolInfo = new Textarea('protocolInfo');
-		$protocolInfo->setLabel('ffffffffffffffffffffffffffffffffffffff');
-		$this->add($protocolInfo);
-		*/
 		
 		$this->add(array(
 	            'name' => 'submit',

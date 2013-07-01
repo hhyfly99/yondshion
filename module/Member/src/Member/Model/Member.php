@@ -158,6 +158,7 @@ class Member {
                     			NotEmpty::IS_EMPTY => '会员名必须输入',
                     		),
                         ),
+                        'break_chain_on_failure' => true
                     ),
                 	array(
                         'name'    => 'StringLength',
@@ -170,6 +171,7 @@ class Member {
                     			StringLength::TOO_LONG => '会员名不大于100个字符',
                     		),
                         ),
+                        'break_chain_on_failure' => true,
                     ),
                 ),
             )));
@@ -189,6 +191,7 @@ class Member {
                     			NotEmpty::IS_EMPTY => '邮箱地址必须输入',
                     		),
                         ),
+                        'break_chain_on_failure' => true,
                     ),
                 	array(
                         'name'    => 'EmailAddress',
@@ -200,6 +203,7 @@ class Member {
                     			EmailAddress::INVALID_FORMAT => '邮箱地址不正确',
                     		),
                         ),
+                        'break_chain_on_failure' => true,
                     ),
                 ),
             )));
@@ -219,6 +223,7 @@ class Member {
                     			NotEmpty::IS_EMPTY => '密码必须输入',
                     		),
                         ),
+                        'break_chain_on_failure' => true,
                     ),
                     array(
                         'name'    => 'StringLength',
@@ -231,6 +236,7 @@ class Member {
                     			StringLength::TOO_LONG => '密码不大于100个字符',
                     		),
                         ),
+                        'break_chain_on_failure' => true,
                     ),
                     array(
                     	'name' => 'Regex', 
@@ -239,8 +245,10 @@ class Member {
                     			'regexNotMatch' => '密码必须包含字母数字',
                     		),
                     		//'pattern' => '/^([a-zA-Z0-9]*[a-zA-Z][a-zA-Z0-9]*)$/',
-                    		'pattern' => '/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/',
+                    		//'pattern' => '/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/',
+                    		'pattern' => '/^(?=.*\d)(?=.*[a-zA-Z]).{6,16}$/',
                     	),
+                    	'break_chain_on_failure' => true,
                     ),
                 ),
             )));
@@ -260,17 +268,8 @@ class Member {
                     			NotEmpty::IS_EMPTY => '再输一次密码',
                     		),
                         ),
+                        'break_chain_on_failure' => true,
                     ),
-                    /*
-                	array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 6,
-                            'max'      => 100,
-                        ),
-                    ),
-                    */
                     array(
                     	'name' => 'Identical',
                     	'options' => array(
@@ -279,14 +278,13 @@ class Member {
                     			Identical::NOT_SAME => '两次密码输入不一致',
                     		),
                     	),
+                    	'break_chain_on_failure' => true,
                     ),
                 ),
             )));
             
-            
-            /*
             $signUpInputFilter->add($factory->createInput(array(
-                'name'     => 'recaptchaInput',
+                'name'     => 'captcha',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -311,7 +309,6 @@ class Member {
                     ),
                 ),
             )));
-            */
             
             $signUpInputFilter->add($factory->createInput(array(
                 'name'     => 'agreement',
@@ -323,18 +320,17 @@ class Member {
                 'validators' => array(
                 	array(
                         'name' => 'Digits', 
-                    	'break_chain_on_failure' => true,
                         'options' => array(
                         	'messages' => array(
                             	Digits::NOT_DIGITS => '同意协议才能注册',
                              ),
                     	),
+                    	'break_chain_on_failure' => true,
                     ),
                 ),
             )));
 
             $this->signUpInputFilter = $signUpInputFilter;
-            
         }
 
         return $this->signUpInputFilter;

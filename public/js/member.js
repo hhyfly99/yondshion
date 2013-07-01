@@ -2,6 +2,7 @@
  * 
  */
 var action = '';
+var o = '';
 
 function getAction() {
 	$('#submitbutton').click(function(){
@@ -16,76 +17,52 @@ function showProtocol() {
 
 function signUpFormAjax() {
 	$('input').blur(function(){
-		var formElememtId = $(this).attr('name');
-		
+		var formElememtId = $(this).attr('id');
+		//alert(formElememtId);
 		signUpFormValidation(formElememtId);
 		
 	});
 }
 
-function signUpFormValidation(formElememtId){
+function signUpFormValidation(id){
 	var url = 'SignUpFromValidation';
 	var data = {};
-	var firstItem = '';
 	$('input').each(function(){
 		data[$(this).attr('name')] = $(this).val();
-		/*
-		$.post(url, data, function(resp){
-			//console.log(resp);
-			for(i in resp){
-				for(j in resp[i]){
-					//console.log(resp[i][j]);
-					//alert(getSignUpError(resp[i][j]));
-					$(this).parent().append(getSignUpError(resp[i][j]));
-				}
-			}
-			//$("#"+id).parent().append(getSignUpError(resp[id], id));
-		}, 'json');
-		*/
-		$.post(url, data, function(resp){
-			//console.log(resp);
-			for(var i in resp){
-				//console.log([i]+':'+resp[i]);
-				if(resp.hasOwnProperty(i)){
-					firstItem = resp[i];
-					break;
-				}
-			}
-			//console.log(firstItem);
-			
-		}, 'json');
-		
-		//alert($(this).val());
-		$(this).parent().append(getSignUpError(firstItem));
 	});
+	//console.log(data);
+	
+	$.post(url, data, function(resp){
+		//console.log(resp);
+		$("#"+id).parent().find('.errors').remove();
+		$("#"+id).parent().append(getSignUpError(resp[id], id));
+	}, 'json');
+}
+
+function agreementValidation(){
+	$('#agreement').click( function(){
+		var data = $('#agreement').val();
+		alert(data);
+		//if( $(this).is(':checked') )
+			//alert("checked");
+	});
+	//data = $('#agreement').val();
 	
 	/*
 	$.post(url, data, function(resp){
 		//console.log(resp);
-		for(var i in resp){
-			//console.log([i]+':'+resp[i]);
-			if(resp.hasOwnProperty(i)){
-				var firstItem = resp[i];
-				break;
-			}
-		}
-		//console.log(firstItem);
-		
-		for(i in resp){
-			for(j in resp[i]){
-				console.log(resp[i][j]);
-				//$("#"+id).parent().append(getSignUpError(resp[i][j])));
-			}
-		}
-		
-		//$("#"+id).parent().append(getSignUpError(resp[id], id));
+		$("#"+id).parent().find('.errors').remove();
+		$("#"+id).parent().append(getSignUpError(resp[id], id));
 	}, 'json');
 	*/
 }
 
-function getSignUpError(errorString){
-	var o = '<ul id="errors" class=errors>';
-	o += '<li>' + errorString + '</li>';
+function getSignUpError(formErrors, id){
+	o = '<ul id="errors-'+id+'" class=errors>';
+	//console.log(formErrors);
+	for(errorKey in formErrors){
+		o += '<li>' + formErrors[errorKey] + '</li>';
+	}
 	o += '</ul>';
 	return o;
 }
@@ -104,27 +81,13 @@ function getSignUpError(formErrors , id){
 
 function checkSignUpForm() {
 	var userName = $.trim($('[name=userName]').val());
-	/*
-	$('[name=userMail]').val();
-	$('[name=userPhone]').val();
-	$('[name=userPasswd]').val();
-	$('[name=userPasswdComfirm]').val();
-	$('[name=captcha[input]]').val();
-	$('[name=agreement]').val();
-	*/
-	/*
-	if(userName == ''){
-		alert('trim ok');
-	}
-	*/
-	/*
-	console.log(userName);
-	*/
+	
 }
  
 $(document).ready(function(){
 	checkSignUpForm();
 	showProtocol();
 	signUpFormAjax();
+	agreementValidation();
 });
 

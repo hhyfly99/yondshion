@@ -173,13 +173,12 @@ class MemberController extends AbstractActionController {
                         {
                             //save error(s) per-element that
                             //needed by Javascript
-                            return $this->getResponse()->setContent(Json::encode($row));
                             $messages[$key][] = $rower;    
                         }
                     }
                 }
 		}
-		//return $this->getResponse()->setContent(Json::encode($errors));
+		return $this->getResponse()->setContent(Json::encode($errors));
 		/*
 		$data = array(
             'result' => true,
